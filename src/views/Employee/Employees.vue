@@ -33,19 +33,18 @@ const addEmployee = () => {
 
   toast.success("successfully added employee !", {
     autoClose: 500,
-    theme:'dark',
-    pauseOnHover:true,
+    theme: "dark",
+    pauseOnHover: true,
   });
 
-    employeeInfo.fullname = "";
-    (employeeInfo.tel = "");
-    (employeeInfo.role = "");
-    (employeeInfo.card = "");
-    (employeeInfo.login = "");
-    (employeeInfo.password = "");
+  employeeInfo.fullname = "";
+  employeeInfo.tel = "";
+  employeeInfo.role = "";
+  employeeInfo.card = "";
+  employeeInfo.login = "";
+  employeeInfo.password = "";
 
-    toggleModal()
-
+  toggleModal();
 };
 </script>
 
