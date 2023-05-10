@@ -1,9 +1,12 @@
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive } from 'vue'
+import { useProductTypeStore } from '../../stores/products/productType'
 
-const modal = ref(false);
+const state = useProductTypeStore()
 
-const toggleModal = () => (modal.value = !modal.value);
+const modal = ref(false)
+
+const toggleModal = () => (modal.value = !modal.value)
 </script>
 
 <template>
@@ -29,9 +32,7 @@ const toggleModal = () => (modal.value = !modal.value);
           <div
             class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
           >
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-              Mahsulot qo'shish
-            </h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Mahsulot qo'shish</h3>
             <button
               @click="toggleModal"
               type="button"
@@ -114,13 +115,9 @@ const toggleModal = () => (modal.value = !modal.value);
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option selected="" disabled>Mahsulot turini tanlang</option>
-                  <option>Admin</option>
-                  <option>Operator</option>
-                  <option>Eltuvchi</option>
+                  <option v-for="el in state.LIST" :key="el.id">{{ el.title }}</option>
                 </select>
               </div>
-
-
             </div>
             <button
               type="submit"
@@ -152,9 +149,7 @@ const toggleModal = () => (modal.value = !modal.value);
     <section class="dark:bg-gray-900 p-0 sm:p-5 md:p-0 md:py-4">
       <div class="w-full max-w-screen-xl px-0 lg:p-0">
         <!-- Start coding here -->
-        <div
-          class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden"
-        >
+        <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
           <div
             class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4"
           >
@@ -162,9 +157,7 @@ const toggleModal = () => (modal.value = !modal.value);
               <form class="flex items-center">
                 <label for="simple-search" class="sr-only">Qidiruv</label>
                 <div class="relative w-full">
-                  <div
-                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
-                  >
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg
                       aria-hidden="true"
                       class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -369,7 +362,11 @@ const toggleModal = () => (modal.value = !modal.value);
                   <td class="px-4 py-3">Yumshoq</td>
                   <td class="px-4 py-3">2023.05.10</td>
                   <td class="px-4 py-3">
-                    <img src="https://cdn.goodzone.uz/goodzone/2fa9d03c-5553-445a-8edb-b76b265e0f5d-copy" alt="mebel" class="rounded-full object-cover w-[45px] h-[45px] border border-dashed">
+                    <img
+                      src="https://cdn.goodzone.uz/goodzone/2fa9d03c-5553-445a-8edb-b76b265e0f5d-copy"
+                      alt="mebel"
+                      class="rounded-full object-cover w-[45px] h-[45px] border border-dashed"
+                    />
                   </td>
                   <td class="px-4 py-3 flex items-center justify-end">
                     <button

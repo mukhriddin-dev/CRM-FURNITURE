@@ -8,45 +8,48 @@ const router = createRouter({
       path: '/',
       name: 'dashboard',
       component: Dashboard,
-      children:[
+      children: [
         {
-          path:"/employee",
+          path: '/employee',
           name: 'employee',
-          component: ()=>import("../views/Employee/Employees.vue")
+          component: () => import('../views/Employee/Employees.vue')
         },
         {
-          path:"/product",
+          path: '/types',
+          name: 'product-types',
+          component: () => import('../views/Product/ProductType.vue')
+        },
+        {
+          path: '/product',
           name: 'product',
-          component: ()=>import("../views/Product/Product.vue")
+          component: () => import('../views/Product/Product.vue')
         },
         {
-          path:"/order",
+          path: '/order',
           name: 'order',
-          component: ()=>import("../views/Order/Orders.vue")
+          component: () => import('../views/Order/Orders.vue')
         },
         {
-          path:"/contact",
+          path: '/contact',
           name: 'contact',
-          component: ()=>import("../views/Contact/Contact.vue")
+          component: () => import('../views/Contact/Contact.vue')
         },
         {
-          path:"/region",
+          path: '/region',
           name: 'region',
-          component: ()=>import("../views/Region/Region.vue")
+          component: () => import('../views/Region/Region.vue')
         }
       ]
     },
-
     {
-      path:"/login",
+      path: '/login',
       name: 'login',
-      component: ()=>import("../views/Login/Login.vue")
+      component: () => import('../views/Login/Login.vue')
     },
-
     {
-     path: '/:pathMatch(.*)*',
-     name:"error",
-     component: ()=>import("../views/Error/Error.vue")
+      path: '/:pathMatch(.*)*',
+      name: 'error',
+      component: () => import('../views/Error/Error.vue')
     }
   ]
 })

@@ -1,9 +1,8 @@
 <script setup>
-import {ref} from "vue";
-import { navLinks } from '../../constants/navlinks';
+import { ref } from 'vue'
+import { navLinks } from '../../constants/navlinks'
 
-const navlink=ref(navLinks);
-
+const navlink = ref(navLinks)
 </script>
 
 <template>
@@ -37,31 +36,24 @@ const navlink=ref(navLinks);
       aria-label="Sidebar"
     >
       <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-
         <ul class="space-y-2 font-medium">
-
           <li v-for="link in navlink" :key="link.id">
             <router-link
               :to="link.link"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-               <i :class="link.icon"></i>
-              <span class="ml-3">{{link.title}}</span>
+              <i :class="link.icon"></i>
+              <span class="ml-3">{{ link.title }}</span>
             </router-link>
           </li>
-
         </ul>
       </div>
     </aside>
-
-    
   </div>
 </template>
 
 <style lang="css" scoped>
-
-.router-link-active{
+.router-link-active {
   border: 1px dashed rgba(128, 128, 128, 0.586);
 }
-
 </style>
