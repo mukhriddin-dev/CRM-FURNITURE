@@ -1,26 +1,46 @@
 <script setup>
-import { ref } from 'vue'
-import { useProductTypeStore } from '../../stores/products/productType'
-import { toast } from 'vue3-toastify'
+import { ref, onMounted } from "vue";
+import { useProductTypeStore } from "../../stores/products/productType";
+import { toast } from "vue3-toastify";
+import { useProduct } from "../../service/product";
 
-const modal = ref(false)
-const toggleModal = () => (modal.value = !modal.value)
+const modal = ref(false);
+const toggleModal = () => (modal.value = !modal.value);
 
-const state = useProductTypeStore()
+const state = useProductTypeStore();
 
-const title = ref('')
+const title = ref("");
+
+const update = () => {
+  useProduct.typeList().then((res) => {
+    console.log(res.data);
+    state.SET_LIST(res?.data?.data);
+  });
+};
 
 const addType = () => {
   const type = {
-    id: Date.now(),
-    title: title.value
-  }
+    name: title.value,
+  };
 
-  state.ADD(type)
-  toast.success('successfully added new type')
-  toggleModal()
-  title.value = ''
-}
+  useProduct
+    .typeCreate(type)
+    .then(() => {
+      toast.success("successfully added new type");
+      update();
+      title.value = "";
+      toggleModal();
+    })
+    .catch((err) => {
+      console.log(err);
+      toast.error("error creating");
+    });
+  
+};
+
+onMounted(() => {
+  update();
+});
 </script>
 
 <template>
@@ -122,7 +142,9 @@ const addType = () => {
     <section class="dark:bg-gray-900 p-0 sm:p-5 md:p-0 md:py-4">
       <div class="w-full max-w-screen-xl px-0 lg:p-0">
         <!-- Start coding here -->
-        <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+        <div
+          class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden"
+        >
           <div
             class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4"
           >
@@ -130,7 +152,9 @@ const addType = () => {
               <form class="flex items-center">
                 <label for="simple-search" class="sr-only">Qidiruv</label>
                 <div class="relative w-full">
-                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <div
+                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                  >
                     <svg
                       aria-hidden="true"
                       class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -314,15 +338,27 @@ const addType = () => {
               >
                 <tr>
                   <th scope="col" class="px-4 py-3">Mahsulot turlari nomi</th>
+                  <th scope="col" class="px-4 py-3">Qo'shilgan sana</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="el in state.LIST" :key="el.id" class="border-b dark:border-gray-700">
+                <tr
+                  v-for="el in state.TYPE_LIST"
+                  :key="el.id"
+                  class="border-b dark:border-gray-700"
+                >
                   <th
                     scope="row"
                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    {{ el.title }}
+                    {{ el.name }}
+                  </th>
+
+                  <th
+                    scope="row"
+                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {{ el.createdAt.substring(0, 10) }}
                   </th>
 
                   <td class="px-4 py-3 flex items-center justify-end">
